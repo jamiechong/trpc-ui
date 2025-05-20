@@ -12,10 +12,18 @@ export type Info = {
   description?: string;
 };
 
+export type Template = {
+  title?: string;
+  titleLink?: string;
+  titleLinkOpensNewTab?: boolean;
+  logoUrl?: string;
+}
+
 export type RenderOptions = {
   url: string;
   cache?: boolean;
   meta?: Info;
+  template?: Template;
 } & TrpcPanelExtraOptions;
 
 const defaultParseRouterOptions: Partial<TrpcPanelExtraOptions> = {

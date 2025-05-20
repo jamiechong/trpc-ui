@@ -103,6 +103,7 @@
     "pretty-bytes": "^6.1.0",
     "pretty-ms": "^8.0.0",
     "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.1",
     "string-byte-length": "^1.6.0",
     "tailwind-merge": "^2.5.5",
     "url": "^0.11.0",

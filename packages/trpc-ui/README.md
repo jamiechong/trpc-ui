@@ -268,6 +268,22 @@ Enter the json supported equivalent under the _json_ key, and and specify how th
 
 Also be warned that currently, input fields will not be rendered for superjson only inputs. You will have to input all data manually through the json editor.
 
+## UI Template
+
+Some minor customizations to the UI template can be made with the `template` option. All of these are optional.
+
+```ts
+  renderTrpcPanel(myTrpcRouter, {
+    url: "http://localhost:4000/trpc", // Base url of your trpc server
+    template: {
+      title: "Custom Title",                    // default: tRPC.ui()
+      titleLink: "/",                           // default: https://github.com/aidansunbury/trpc-ui
+      titleLinkOpensNewTab: false,              // default: true
+      logoUrl: "https://example.com/logo.svg",  // default: <stock SVG>, max height is 40px
+    },
+  })
+```
+
 ## Contributing
 
 `trpc-ui` welcomes and encourages open source contributions. Please see our [contributing](./CONTRIBUTING.md) guide for information on how to develop locally. Besides contributing PRs, one of the most helpful things you can to is to look at the existing [feature proposals](https://github.com/aidansunbury/trpc-ui/issues?q=sort%3Aupdated-desc%20is%3Aissue%20is%3Aopen%20label%3Aenhancement) and leave a 👍 on the features that would be most helpful for you.
