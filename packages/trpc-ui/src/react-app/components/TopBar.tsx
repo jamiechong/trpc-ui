@@ -4,6 +4,7 @@ import { Chevron } from "@src/react-app/components/Chevron";
 import { LogoSvg } from "@src/react-app/components/LogoSvg";
 import { useHeadersContext } from "@src/react-app/components/contexts/HeadersContext";
 import { useSearch } from "@src/react-app/components/contexts/SearchStore";
+import { useRenderOptions } from "@src/react-app/components/contexts/OptionsContext";
 import { useIsMac } from "@src/react-app/components/hooks/useIsMac";
 import React from "react";
 
@@ -15,6 +16,8 @@ export function TopBar({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { setHeadersPopupShown } = useHeadersContext();
+  const { template } = useRenderOptions();
+  
   return (
     <div className="position-fixed top-0 right-0 left-0 flex h-16 w-full flex-row items-center justify-between border-b border-b-panelBorder bg-actuallyWhite bg-gray-50 px-4 pr-8 drop-shadow-sm">
       <div className="flex flex-row items-center gap-4">
@@ -31,13 +34,13 @@ export function TopBar({
           )}
         </button>
         <a
-          href="https://github.com/aidansunbury/trpc-ui"
-          target="_blank"
+          href={template?.titleLink ?? "https://github.com/aidansunbury/trpc-ui"}
+          target={template?.titleLinkOpensNewTab === false ? "_self" : "_blank"}
           className="flex flex-row items-center font-bold font-mono text-lg"
           rel="noreferrer"
         >
-          <LogoSvg className="mr-2 h-10 w-10 rounded-lg" />
-          tRPC.ui()
+          { template?.logoUrl ? <img src={template.logoUrl} style={{maxHeight: 40 }} /> : <LogoSvg className="mr-2 h-10 w-10 rounded-lg" /> }
+          { template?.title ?? "tRPC.ui()" }
         </a>
       </div>
       <RouterSearchTooltip />

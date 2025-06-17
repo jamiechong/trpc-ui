@@ -12,10 +12,19 @@ export type Info = {
   description?: string;
 };
 
+export type Template = {
+  title?: string;
+  titleLink?: string;
+  titleLinkOpensNewTab?: boolean;
+  documentTitle?: string;
+  logoUrl?: string;
+}
+
 export type RenderOptions = {
   url: string;
   cache?: boolean;
   meta?: Info;
+  template?: Template;
 } & TrpcPanelExtraOptions;
 
 const defaultParseRouterOptions: Partial<TrpcPanelExtraOptions> = {
@@ -24,6 +33,7 @@ const defaultParseRouterOptions: Partial<TrpcPanelExtraOptions> = {
 };
 
 const dirLocation = dirname(fileURLToPath(import.meta.url));
+const titleReplaceSymbol = "{{title}}";
 const javascriptReplaceSymbol = "{{js}}";
 const cssReplaceSymbol = "{{css}}";
 const routerReplaceSymbol = '"{{parsed_router}}"';
@@ -90,6 +100,7 @@ export function renderTrpcPanel(router: AnyTRPCRouter, options: RenderOptions) {
   const bundleInjected = injectParams(bundleJs, bundleInjectionParams);
   const script = `<script>${bundleInjected}</script>`;
   const css = `<style>${indexCss}</style>`;
+  const { template } = options;
   const htmlReplaceParams: InjectionParam[] = [
     {
       searchFor: javascriptReplaceSymbol,
@@ -99,6 +110,10 @@ export function renderTrpcPanel(router: AnyTRPCRouter, options: RenderOptions) {
       searchFor: cssReplaceSymbol,
       injectString: css,
     },
+    {
+      searchFor: titleReplaceSymbol,
+      injectString: template?.documentTitle ?? template?.title ?? "tRPC.ui()",
+    }
   ];
   cache.val = injectParams(indexHtml, htmlReplaceParams);
   return cache.val;

@@ -3,6 +3,8 @@ import { FormLabel } from "@src/react-app/components/form/FormLabel";
 import { FormSection } from "@src/react-app/components/form/ProcedureForm/FormSection";
 import React, { type ReactNode } from "react";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 export function DocumentationSection({
   extraData,
 }: {
@@ -17,7 +19,7 @@ export function DocumentationSection({
         {extraData.description && (
           <DocumentationSubsection title="Description">
             <article className="prose">
-              <Markdown>{extraData.description}</Markdown>
+              <Markdown remarkPlugins={[remarkGfm]}>{extraData.description}</Markdown>
             </article>
           </DocumentationSubsection>
         )}
