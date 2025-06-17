@@ -280,6 +280,7 @@ Some minor customizations to the UI template can be made with the `template` opt
       titleLink: "/",                           // default: https://github.com/aidansunbury/trpc-ui
       titleLinkOpensNewTab: false,              // default: true
       logoUrl: "https://example.com/logo.svg",  // default: <stock SVG>, max height is 40px
+      documentTitle: "Doc Title",               // default: <template.title> ?? tRPC.ui()
     },
   })
 ```
