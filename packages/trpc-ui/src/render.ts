@@ -25,6 +25,7 @@ export type RenderOptions = {
   cache?: boolean;
   meta?: Info;
   template?: Template;
+  allowBatching?: boolean;
 } & TrpcPanelExtraOptions;
 
 const defaultParseRouterOptions: Partial<TrpcPanelExtraOptions> = {
