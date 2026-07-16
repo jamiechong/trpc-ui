@@ -12,7 +12,7 @@ import { useLocalStorage } from "@src/react-app/components/hooks/useLocalStorage
 import type { RenderOptions } from "@src/render";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { type createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { type createTRPCReact, httpBatchLink, httpLink } from "@trpc/react-query";
 import { useQueryState } from "nuqs";
 import { parseAsArrayOf, parseAsString } from "nuqs";
 import { NuqsAdapter } from "nuqs/adapters/react";
@@ -68,10 +68,11 @@ function ClientProviders({
   options: RenderOptions;
 }) {
   const headers = useHeaders();
+  const httpLinker = options.allowBatching !== false ? httpBatchLink : httpLink; // allowBatching could be undefined, so we default to true if not specified
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
-        httpBatchLink({
+        httpLinker({
           url: options.url,
           headers: headers.getHeaders,
         }),

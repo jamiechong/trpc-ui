@@ -25,6 +25,7 @@ export type RenderOptions = {
   cache?: boolean;
   meta?: Info;
   template?: Template;
+  allowBatching?: boolean;
 } & TrpcPanelExtraOptions;
 
 const defaultParseRouterOptions: Partial<TrpcPanelExtraOptions> = {
@@ -118,3 +119,4 @@ export function renderTrpcPanel(router: AnyTRPCRouter, options: RenderOptions) {
   cache.val = injectParams(indexHtml, htmlReplaceParams);
   return cache.val;
 }
+

@@ -59,13 +59,17 @@ const TRPCErrorSchema = z.object({
 });
 
 export function parseError(errorResponse: any, superJson: boolean) {
+  // If responseJSON is not an array of errors (when allowBatching is false), wrap it in an array
+  // since the rest of the code expects an array of errors.
+  const responseJSON = errorResponse.meta.responseJSON;
+  errorResponse.meta.responseJSON = Array.isArray(responseJSON) ? responseJSON : [responseJSON];
+
   if (!superJson) {
     const { success, data } = TRPCErrorSchema.safeParse(errorResponse);
     return { isError: success, data };
   }
   const errors = [];
   for (const error of errorResponse.meta.responseJSON) {
-    console.log("hi");
     if (error.error.json) {
       errors.push({
         error: SuperJson.deserialize(error.error),
