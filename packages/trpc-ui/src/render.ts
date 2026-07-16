@@ -119,3 +119,4 @@ export function renderTrpcPanel(router: AnyTRPCRouter, options: RenderOptions) {
   cache.val = injectParams(indexHtml, htmlReplaceParams);
   return cache.val;
 }
+
